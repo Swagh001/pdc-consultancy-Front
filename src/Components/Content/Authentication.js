@@ -1,18 +1,26 @@
 import { useState,} from 'react';
 
-const Authentication = ({setName,setJob}) => {
+const Authentication = ({ setName, setJob }) => {
   const [flag, setflag] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     job: '',
     password: ''
   });
+  const [flag2, setflag2] = useState(false);
+  // console.log(setName," ",setJob)
 
   let handlesignup = () => {
     setflag(true);
   };
   let handleLogin = () => {
     setflag(false);
+  };
+
+  const handleLogout = () => {
+    setName("______");
+    setJob("______");
+    setflag2(false);
   };
 
   let handleSubmit = async (e) => {
@@ -35,9 +43,9 @@ const Authentication = ({setName,setJob}) => {
         if (token) {
             localStorage.setItem('data', JSON.stringify({ name: formData.name, job: data.job }));
             localStorage.setItem('flag', true);
-            // setName(data.name);
-            // setJob(data.job);
-            console.log(data);
+            setName(formData.name);
+            setJob(data.job);
+            setflag2(true);
           }
       }
       else {
@@ -107,6 +115,7 @@ const Authentication = ({setName,setJob}) => {
           </div>
         )}
       </div>
+      {flag2 ? <button onClick={handleLogout}>Logout</button> : ""}
     </div>
   );
 };
