@@ -17,7 +17,7 @@ const Authentication = ({setName,setJob}) => {
 
   let handleSubmit = async (e) => {
     e.preventDefault();
-    const url = flag ? 'http://localhost:8081/signup' : 'http://localhost:8081/login';
+    const url = flag ? 'https://pdc-consultancy-backend.vercel.app/signup' : 'https://pdc-consultancy-backend.vercel.app/login';
 
     try {
       const response = await fetch(url, {
