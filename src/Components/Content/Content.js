@@ -10,11 +10,15 @@ const Content = () => {
   const [job, setJob] = useState('______');
   const [flag, setFlag] = useState(localStorage.getItem('flag') === 'true');
 
-  // const handleLogout = (flag) => {
-  //   localStorage.removeItem('data');
-  //   localStorage.setItem('flag', false);
-  //   setFlag(false);
-  // };
+  const handleLogout = (flag) => {
+    localStorage.removeItem('data');
+    localStorage.setItem('flag', false);
+    setName("______");
+    setJob("______");
+    setFlag(false);
+    alert("logoutDone")
+  };
+  
 
   useEffect(() => {
     if(flag) {
@@ -52,7 +56,7 @@ const Content = () => {
       </div>
 
       <div>
-        <Authentication setName={setName} setJob={setJob} />
+        <Authentication setName={setName} setJob={setJob} setFlag={setFlag} handleLogout={handleLogout} logoutflag={flag}/>
         {/* {flag && <button onClick={handleLogout}>Logout</button>} */}
       </div>
     </div>

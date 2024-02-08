@@ -1,13 +1,13 @@
 import { useState,} from 'react';
 
-const Authentication = ({ setName, setJob }) => {
+const Authentication = ({ setName, setJob, setFlag, handleLogout,logoutflag }) => {
   const [flag, setflag] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     job: '',
     password: ''
   });
-  const [flag2, setflag2] = useState(false);
+  // const [flag2, setflag2] = useState(false);
   // console.log(setName," ",setJob)
 
   let handlesignup = () => {
@@ -17,11 +17,11 @@ const Authentication = ({ setName, setJob }) => {
     setflag(false);
   };
 
-  const handleLogout = () => {
-    setName("______");
-    setJob("______");
-    setflag2(false);
-  };
+  // const handleLogout = () => {
+  //   setName("______");
+  //   setJob("______");
+  //   // setflag2(false);
+  // };
 
   let handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,18 +40,28 @@ const Authentication = ({ setName, setJob }) => {
         const data = await response.json();
         console.log(data);
         const token = data.token;
+        let loginflag=true;
         if (token) {
             localStorage.setItem('data', JSON.stringify({ name: formData.name, job: data.job }));
             localStorage.setItem('flag', true);
             setName(formData.name);
             setJob(data.job);
-            setflag2(true);
+            setFlag(true);
+            // setflag2(true);
+            alert("LogIn done!");
+            loginflag=false;
           }
+          if(loginflag){
+            alert("SignUp Done!");
+          }
+          
       }
       else {
         console.error('Error:', response.statusText);
+        alert("error please try again!");
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error:', error);
     }
   };
@@ -115,7 +125,7 @@ const Authentication = ({ setName, setJob }) => {
           </div>
         )}
       </div>
-      {flag2 ? <button onClick={handleLogout}>Logout</button> : ""}
+      {logoutflag ? <button onClick={()=>{handleLogout(logoutflag)}}>Logout</button> : ""}
     </div>
   );
 };
